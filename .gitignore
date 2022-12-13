@@ -1,0 +1,7 @@
+node_modules/
+.env
+build
+cache
+storage
+logs
+pnpm-lock.yaml
