@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Images | Administration</title>
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
+    </head>
+
+    <body class="w-screen h-screen bg-gray-900 flex flex-row text-white">
+        <div id="sidebar" class="xl:w-2/15 border-r-2 border-solid border-white">
+            <div class="flex flex-col">
+                <div id="profile" class="m-4 flex flex-row">
+                    <img class="rounded-full w-1/2 h-auto" src="../images/loading.gif" alt="Profile Picture" />
+                    <div class="m-auto w-full flex flex-col">
+                        <p id="username" class="mx-auto mb-2 font-roboto font-bold text-lg">Loading...</p>
+                        <button
+                            id="logout"
+                            class="mx-auto p-1.5 rounded-lg bg-transparent border-solid border-red-600 border-2 text-red-600 hover:bg-black duration-700 active:bg-white"
+                        >
+                            Odhlásit se
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div id="nav" class="m-4 flex flex-col">
+                <div
+                    class="mb-2 px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
+                    data-load="home"
+                >
+                    <i class="bi bi-house-door-fill"></i>
+                    Domů
+                </div>
+                <div
+                    class="mb-2 px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
+                    data-load="accounts"
+                >
+                    <i class="bi bi-people-fill"></i>
+                    Účty
+                </div>
+            </div>
+        </div>
+        <div id="content" class="flex flex-col ml-4">
+            <div id="home" class="hidden">Toto je home stránka</div>
+            <div id="accounts" class="hidden">Toto je accounts stránka</div>
+        </div>
+        <script src="js/main.js"></script>
+    </body>
+</html>
