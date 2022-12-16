@@ -3,8 +3,15 @@ import sharp from 'sharp'
 import dotenv from 'dotenv'
 import path from 'path'
 import fs from 'fs'
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import JSONdb from 'simple-json-db'
+import bcrypt from 'bcrypt'
+import crypto from 'crypto'
 
 import Logger from './lib/logger'
+import Cookies from './lib/cookies'
+import { user } from './types/dbValues'
 
 const l = new Logger('APP', 'blue')
 l.start('Starting...')
@@ -20,6 +27,22 @@ const app = express()
 const port = 3000
 const previewSize = 100
 const r = new Logger('REQUEST', 'yellow')
+const jsonParser = bodyParser.json()
+const db = new JSONdb(path.join(__dirname, '..', 'db.json'), {
+    syncOnWrite: true,
+    asyncWrite: true,
+    jsonSpaces: false,
+})
+
+const cookies = new Cookies()
+
+function UUIDV4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        let r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8
+        return v.toString(16)
+    })
+}
 
 async function generateCacheFile(res: Response, req: Request, filePath: string, cachedFile: string): Promise<boolean> {
     if (!fs.existsSync(filePath)) {
@@ -55,6 +78,9 @@ async function generateCacheFile(res: Response, req: Request, filePath: string, 
         return false
     }
 }
+
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(jsonParser)
 
 //administration
 app.use(express.static(publicPath))
@@ -238,6 +264,130 @@ app.get('/file/:id', (req, res) => {
 
     res.sendFile(filePath)
     r.stop('Ended request from ' + req.ip + ' for file ' + req.params.id + ' with status 200 (OK)')
+})
+
+//api
+app.get('/api/logged', (req, res) => {
+    r.start('Got request from ' + req.ip + ' for api logged')
+
+    let sessId = req.cookies.sessId
+
+    if (!sessId) {
+        res.status(401).json({
+            logged: false,
+        })
+        r.stop('Ended request from ' + req.ip + ' for api logged with status 401 (Not logged in.)')
+        return
+    }
+
+    let data = cookies.get(sessId)
+    if (!data) {
+        res.status(401).json({
+            logged: false,
+        })
+        r.stop('Ended request from ' + req.ip + ' for api logged with status 401 (Not logged in.)')
+        return
+    }
+
+    //check if expired
+    if (data.expires < Date.now()) {
+        cookies.delete(sessId)
+        res.status(401).json({
+            logged: false,
+        })
+        r.stop('Ended request from ' + req.ip + ' for api logged with status 401 (Not logged in.)')
+        return
+    }
+
+    res.status(200).json(data.value)
+    r.stop('Ended request from ' + req.ip + ' for api logged with status 200 (OK)')
+})
+
+app.post('/api/login', async (req, res) => {
+    r.start('Got request from ' + req.ip + ' for api login')
+
+    let username = req.body.username
+    let password = req.body.password
+
+    if (!username || !password) {
+        res.status(400).json({
+            status: false,
+            message: 'Missing username or password.',
+        })
+
+        r.stop('Ended request from ' + req.ip + ' for api login with status 400 (Invalid request.)')
+        return
+    }
+
+    let users: user[] = db.get('users')
+
+    let user = users.find((user) => user.username == username)
+
+    if (!user) {
+        res.status(401).json({
+            status: false,
+            message: 'Invalid user',
+        })
+        r.stop('Ended request from ' + req.ip + ' for api login with status 401 (Invalid username or password.)')
+        return
+    }
+
+    if (!bcrypt.compareSync(password, user.password)) {
+        res.status(401).json({
+            status: false,
+            message: 'Invalid password',
+        })
+        r.stop('Ended request from ' + req.ip + ' for api login with status 401 (Invalid username or password.)')
+        return
+    }
+
+    let currentSessId = req.cookies.sessId
+
+    if (currentSessId) {
+        cookies.delete(currentSessId)
+    }
+
+    let sessId = UUIDV4()
+
+    cookies.set(sessId, {
+        expires: Date.now() + 2_592_000_000,
+        value: {
+            username: user.username,
+            email: user.email,
+            avatar: crypto.createHash('md5').update(user.email).digest('hex'),
+        },
+    })
+
+    res.cookie('sessId', sessId, {
+        maxAge: 2_592_000_000,
+    })
+
+    res.status(200).json({
+        status: true,
+    })
+    r.stop('Ended request from ' + req.ip + ' for api login with status 200 (OK)')
+})
+
+app.get('/api/logout', (req, res) => {
+    r.start('Got request from ' + req.ip + ' for api logout')
+
+    let sessId = req.cookies.sessId
+
+    if (!sessId) {
+        res.status(401).json({
+            status: false,
+            message: 'Not logged in.',
+        })
+        r.stop('Ended request from ' + req.ip + ' for api logout with status 401 (Not logged in.)')
+        return
+    }
+
+    cookies.delete(sessId)
+
+    res.status(200).json({
+        status: true,
+    })
+    r.stop('Ended request from ' + req.ip + ' for api logout with status 200 (OK)')
 })
 
 app.listen(port, () => {
