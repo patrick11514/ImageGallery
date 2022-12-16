@@ -1,7 +1,16 @@
+#node modules
 node_modules/
-.env
+
+#folders
 build
 cache
 storage
 logs
+
+#files
 pnpm-lock.yaml
+.env
+
+#databases
+cookies.json
+db.json
