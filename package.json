@@ -10,8 +10,10 @@
         "start": "node ./src/index.js",
         "clear": "rm -r build/*",
         "clearCache": "rm -r cache/*",
-        "buildCss": "sass public/css",
-        "buildJs": "tsc -p public/js/tsconfig.json"
+        "buildCss": "tailwindcss -i public/css/style.tw.css -o public/css/style.css",
+        "devCss": "tailwindcss -i public/css/style.tw.css -o public/css/style.css --watch",
+        "buildJs": "tsc -p public/js/tsconfig.json",
+        "devJs": "tsc -p public/js/tsconfig.json --watch"
     },
     "keywords": [],
     "author": "Patrik Mintěl",
@@ -21,7 +23,6 @@
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "fs": "0.0.1-security",
-        "sass": "^1.56.2",
         "sharp": "^0.31.2",
         "strip-color": "^0.1.0",
         "ts-node-dev": "^2.0.0",
@@ -32,6 +33,7 @@
         "@types/express": "^4.17.14",
         "@types/node": "^18.11.15",
         "@types/sharp": "^0.31.0",
-        "@types/strip-color": "^0.1.0"
+        "@types/strip-color": "^0.1.0",
+        "tailwindcss": "^3.2.4"
     }
 }
