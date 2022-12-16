@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-        "rootDir": ".",
-        "outDir": ".",
         "removeComments": true,
         "target": "ES2022",
         "strict": true,
@@ -10,6 +8,6 @@
         "forceConsistentCasingInFileNames": true,
     },
     "include": [
-        "*.ts",
+        "./**/*.ts",
     ],
 }
