@@ -32,6 +32,8 @@ function loadUI() {
         hash = 'home';
     }
     navItems.forEach((item) => {
+        console.log(hash);
+        console.log(item.getAttribute('data-load'));
         if (item.getAttribute('data-load') == hash) {
             item.classList.remove('bg-black');
             item.classList.add('bg-gray-600');
@@ -57,8 +59,10 @@ function updateContent(page, oldPage = null) {
     if (oldPage) {
         let oldContent = document.querySelector('#content #' + oldPage);
         oldContent.classList.add('hidden');
+        oldContent.classList.remove('flex');
     }
     let content = document.querySelector('#content #' + page);
     content.classList.remove('hidden');
+    content.classList.add('flex');
     window.location.href = '#' + page;
 }

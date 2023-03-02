@@ -34,6 +34,27 @@ const db = new JSONdb(path.join(__dirname, '..', 'db.json'), {
     jsonSpaces: false,
 })
 
+//create default user and role
+if (!db.has('users')) {
+    db.set('users', [
+        {
+            username: process.env.DEFAULT_USER_NAME as string,
+            email: process.env.DEFAULT_USER_EMAIL as string,
+            password: bcrypt.hashSync(process.env.DEFAULT_USER_PASS as string, 10),
+            roles: [process.env.ADMIN_ROLE_NAME as string],
+        },
+    ])
+}
+
+if (!db.has('roles')) {
+    db.set('roles', [
+        {
+            name: process.env.ADMIN_ROLE_NAME as string,
+            color: process.env.ADMIN_ROLE_COLOR as string,
+        },
+    ])
+}
+
 const cookies = new Cookies()
 
 function UUIDV4() {
@@ -304,7 +325,7 @@ app.get('/api/logged', (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
-    r.start('Got request from ' + req.ip + ' for api login')
+    r.start('Got request from ' + req.ip + ' for api login of user ' + req.body.username)
 
     let username = req.body.username
     let password = req.body.password
@@ -355,6 +376,9 @@ app.post('/api/login', async (req, res) => {
             username: user.username,
             email: user.email,
             avatar: crypto.createHash('md5').update(user.email).digest('hex'),
+            admin: user.roles.includes(process.env.ADMIN_ROLE_NAME ? process.env.ADMIN_ROLE_NAME : 'Admin')
+                ? true
+                : false,
         },
     })
 

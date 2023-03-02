@@ -27,16 +27,16 @@
                 </div>
             </div>
             <hr />
-            <div id="nav" class="m-4 flex flex-col">
+            <div id="nav" class="m-4 flex flex-col space-y-2">
                 <div
-                    class="mb-2 px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
+                    class="px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
                     data-load="home"
                 >
                     <i class="bi bi-house-door-fill"></i>
                     Domů
                 </div>
                 <div
-                    class="mb-2 px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
+                    class="px-3 py-2 w-full bg-black hover:bg-gray-600 duration-500 rounded-lg font-roboto text-xl font-bold"
                     data-load="accounts"
                 >
                     <i class="bi bi-people-fill"></i>
@@ -44,9 +44,49 @@
                 </div>
             </div>
         </div>
-        <div id="content" class="flex flex-col ml-4">
-            <div id="home" class="hidden">Toto je home stránka</div>
-            <div id="accounts" class="hidden">Toto je accounts stránka</div>
+        <div id="content" class="m-4 w-full">
+            <div id="home" class="flex-col hidden">Toto je home stránka</div>
+            <div id="accounts" class="flex-col hidden">
+                <h1 class="font-roboto font-bold text-4xl border-solid border-b-2 border-white">Seznam účtů</h1>
+                <table class="mx-auto w-auto">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>#</th>
+                            <th>Uživatelské jméno</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Ovládání</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <img
+                                    src="http://www.gravatar.com/avatar/5665c607477c727d4b5a1393a6d4ebbf"
+                                    alt="Profile Image"
+                                />
+                            </td>
+                            <td>patrick115</td>
+                            <td>patrikbuisness@gmail.com</td>
+                            <td class="">
+                                <span class="px-2 py-1" style="background-color: #ff0000">Admin</span
+                                ><span class="px-2 py-1" style="background-color: #ff0000">Admin</span
+                                ><span class="px-2 py-1" style="background-color: #ff0000">Admin</span
+                                ><span class="px-2 py-1" style="background-color: #ff0000">Admin</span>
+                            </td>
+                            <td>
+                                <button
+                                    class="bg-transparent border-solid border-red-600 border-2 text-red-600 hover:bg-black duration-700 active:bg-white"
+                                >
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <script src="js/main.js"></script>
     </body>

@@ -7,6 +7,12 @@ interface user {
     username: string
     email: string
     password: string
+    roles: string[]
 }
 
-export { cookie, user }
+interface role {
+    name: string
+    color: string
+}
+
+export { cookie, user, role }
