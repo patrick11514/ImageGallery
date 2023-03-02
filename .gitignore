@@ -1,16 +1,10 @@
-#node modules
-node_modules/
-
-#folders
-build
-cache
-storage
-logs
-
-#files
-pnpm-lock.yaml
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
 .env
-
-#databases
-cookies.json
-db.json
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

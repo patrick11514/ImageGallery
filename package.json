@@ -1,46 +1,39 @@
 {
-    "name": "screenshot_browser",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "dev": "ts-node-dev --respawn ./src/index.ts",
-        "folders": "mkdir -p storage cache logs",
-        "build": "tsc -p tsconfig.json && pnpm folders",
-        "start": "node ./build/index.js",
-        "clear": "rm -r build/*",
-        "clearCache": "rm -r cache/*",
-        "buildCss": "tailwindcss -i public/css/style.tw.css -o public/css/style.css",
-        "devCss": "tailwindcss -i public/css/style.tw.css -o public/css/style.css --watch",
-        "buildJs": "tsc -p public/tsconfig.json",
-        "devJs": "tsc -p public/tsconfig.json --watch"
-    },
-    "keywords": [],
-    "author": "Patrik Mintěl",
-    "license": "ISC",
-    "dependencies": {
-        "bcrypt": "^5.1.0",
-        "body-parser": "^1.20.1",
-        "cli-color": "^2.0.3",
-        "cookie-parser": "^1.4.6",
-        "dotenv": "^16.0.3",
-        "express": "^4.18.2",
-        "fs": "0.0.1-security",
-        "sharp": "^0.31.2",
-        "simple-json-db": "^2.0.0",
-        "strip-color": "^0.1.0",
-        "ts-node-dev": "^2.0.0",
-        "typescript": "^4.9.4"
-    },
-    "devDependencies": {
-        "@types/bcrypt": "^5.0.0",
-        "@types/body-parser": "^1.19.2",
-        "@types/cli-color": "^2.0.2",
-        "@types/cookie-parser": "^1.4.3",
-        "@types/express": "^4.17.14",
-        "@types/node": "^18.11.15",
-        "@types/sharp": "^0.31.0",
-        "@types/strip-color": "^0.1.0",
-        "tailwindcss": "^3.2.4"
-    }
+	"name": "imagegallery",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.5.0",
+		"@typescript-eslint/eslint-plugin": "^5.45.0",
+		"@typescript-eslint/parser": "^5.45.0",
+		"autoprefixer": "^10.4.13",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"postcss": "^8.4.21",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
+		"sass": "^1.54.8",
+		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"tailwindcss": "^3.2.7",
+		"tslib": "^2.4.1",
+		"typescript": "^4.9.3",
+		"vite": "^4.0.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"dotenv": "^16.0.2",
+		"fs": "0.0.1-security"
+	}
 }
