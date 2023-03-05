@@ -10,3 +10,14 @@ declare global {
 }
 
 export {}
+
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            DEFAULT_USERNAME: string
+            DEFAULT_PASSWORD: string
+        }
+    }
+}
+
+export {}
