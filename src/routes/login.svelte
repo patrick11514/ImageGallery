@@ -53,8 +53,6 @@
 
         let response = (await request.json()) as Response
 
-        console.log(response)
-
         if (response.status) {
             $data.username = username
             $data.logged = true
