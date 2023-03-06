@@ -8,9 +8,8 @@
 
     let username: string
     let password: string
-    let logged = false
 
-    let error: string | null = null
+    let error: string | undefined = undefined
 
     let inputError = {
         username: false,
@@ -54,11 +53,15 @@
 
         let response = (await request.json()) as Response
 
-        if (response.error) {
-            error = response.error
+        console.log(response)
+
+        if (response.status) {
+            $data.username = username
+            $data.logged = true
+        } else {
+            error = response?.error
             inputError.username = true
             inputError.password = true
-        } else {
         }
         target.disabled = false
     }
