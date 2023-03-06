@@ -4,5 +4,8 @@
     export const data = writable<{
         logged: boolean
         username: string
-    }>()
+    }>({
+        logged: false,
+        username: ''
+    })
 </script>
