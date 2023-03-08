@@ -4,8 +4,20 @@
     export const data = writable<{
         logged: boolean
         username: string
+        hash: string
+        role: {
+            name: string
+            color: string
+        }
+        permissions: string[]
     }>({
         logged: false,
-        username: ''
+        username: '',
+        hash: '',
+        role: {
+            name: '',
+            color: ''
+        },
+        permissions: []
     })
 </script>

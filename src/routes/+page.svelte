@@ -1,13 +1,11 @@
 <script lang="ts">
     import { data } from '$lib/data.svelte'
     import Login from './login.svelte'
-    import Admin from './admin.svelte'
+    import Redirect from '../components/redirect.svelte'
 </script>
 
-Username: {$data?.username}
-
 {#if $data?.logged}
-    <Admin />
+    <Redirect link="/admin" />
 {:else}
     <Login />
 {/if}

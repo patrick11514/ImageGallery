@@ -2,7 +2,7 @@
     import Button from '../components/button.svelte'
     import Input from '../components/input.svelte'
 
-    import type { Response } from '../types/response'
+    import type { LoginResponse } from '../types/response'
 
     import { data } from '$lib/data.svelte'
 
@@ -51,7 +51,7 @@
             })
         })
 
-        let response = (await request.json()) as Response
+        let response = (await request.json()) as LoginResponse
 
         if (response.status) {
             $data.username = username
