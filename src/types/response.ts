@@ -1,3 +1,5 @@
+import type { User } from './types'
+
 export interface Response {
     status: boolean
     message?: string
@@ -5,11 +7,6 @@ export interface Response {
 }
 
 export interface LoginResponse extends Response {
-    data: {
-        role: {
-            name: string
-            color: string
-        }
-        admin: boolean
-    }
+    cookie: string
+    data: User
 }
