@@ -1,6 +1,5 @@
 <script lang="ts">
     import { goto } from '$app/navigation'
-    import { redirect } from '@sveltejs/kit'
     import { onDestroy, onMount } from 'svelte'
 
     export let link: string
@@ -13,7 +12,7 @@
 
     onMount(() => {
         func()
-        goto('/admin')
+        goto(link)
     })
 
     let func = () => {
