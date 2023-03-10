@@ -4,14 +4,14 @@ import type { RequestHandler } from './$types'
 import type { LoginResponse, Response } from '../../../types/response'
 import { connection as conn } from '$lib/server/mysql'
 import { comparePass } from '$lib/server/funcs'
-import { setCookie } from '$lib/server/cookies/main'
+import { setCookie, updateCookie } from '$lib/server/cookies/main'
 import type { User } from '../../../types/types'
 import crypto from 'crypto'
 
 //expire afte 10 minutes
 const cookieExpire = 1000 * 60 * 10
 
-export const POST = (async ({ request }) => {
+export const POST = (async ({ request, cookies }) => {
     const data = (await request.json()) as UserLogin
 
     const user = await conn.query<
@@ -39,8 +39,20 @@ export const POST = (async ({ request }) => {
                 username: data.username
             } satisfies User
 
+            const currentCookie = cookies.get('session')
+            let cookie: string
+            if (currentCookie) {
+                cookie = updateCookie<User>(currentCookie, userData, cookieExpire)
+            } else {
+                cookie = setCookie<User>(userData, cookieExpire)
+            }
+
+            cookies.set('session', cookie, {
+                path: '/',
+                maxAge: cookieExpire / 1000
+            })
+
             return json({
-                cookie: setCookie<User>(userData, cookieExpire),
                 status: true,
                 data: userData
             } satisfies LoginResponse)
