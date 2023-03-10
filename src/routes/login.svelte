@@ -4,6 +4,8 @@
 
     import type { LoginResponse } from '../types/response'
 
+    import { data } from '../components/data.svelte'
+
     let username: string
     let password: string
 
@@ -52,6 +54,10 @@
         let response = (await request.json()) as LoginResponse
 
         if (response.status) {
+            data.set({
+                ...response.data,
+                logged: true
+            })
         } else {
             error = response?.error
             inputError.username = true

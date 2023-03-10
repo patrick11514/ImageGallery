@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { data } from '$lib/data.svelte'
     import Login from './login.svelte'
+    import { data } from '../components/data.svelte'
     import Redirect from '../components/redirect.svelte'
 </script>
 
