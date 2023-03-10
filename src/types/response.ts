@@ -7,6 +7,5 @@ export interface Response {
 }
 
 export interface LoginResponse extends Response {
-    cookie: string
     data: User
 }
