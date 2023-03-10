@@ -1,12 +1,18 @@
 import JSONdb from 'simple-json-db'
 import { v4 as uuid } from 'uuid'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
-interface cookie {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+interface cookie<Type> {
     expires: number
-    values: unknown
+    values: Type
 }
 
-const db = new JSONdb<cookie>('cookies.json', {
+const db = new JSONdb<cookie<unknown>>(path.join(__dirname, 'cookies.json'), {
     syncOnWrite: true,
     jsonSpaces: false,
     asyncWrite: false
@@ -21,15 +27,31 @@ const checkCookies = () => {
     })
 }
 
-export const getCookie = (key: string) => {
+export const getCookie = <T>(key: string) => {
     checkCookies()
-    return db.get(key)
+    return db.get(key) as cookie<T>
+}
+
+export const updateCookie = <T>(id: string, value: T, age: number) => {
+    checkCookies()
+
+    db.set(id, {
+        expires: Date.now() + age,
+        values: value
+    })
+
+    return id
 }
 
 export const setCookie = <T>(value: T, age: number) => {
     checkCookies()
 
-    const id = uuid()
+    let id = uuid()
+
+    while (db.has(id)) {
+        id = uuid()
+    }
+
     db.set(id, {
         expires: Date.now() + age,
         values: value
