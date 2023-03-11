@@ -16,6 +16,16 @@ export const load = (({ cookies }) => {
 
     const data = getCookie<User>(uuid)
 
+    if (!data) {
+        return {
+            logged: false,
+            role: {
+                name: '',
+                color: ''
+            }
+        }
+    }
+
     return {
         ...data.values,
         logged: true
