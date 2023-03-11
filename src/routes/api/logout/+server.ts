@@ -1,14 +1,20 @@
 import { json } from '@sveltejs/kit'
-import type { UserLogin } from '../../../types/request'
 import type { RequestHandler } from './$types'
-import type { LoginResponse, Response } from '../../../types/response'
-import { connection as conn } from '$lib/server/mysql'
-import { comparePass } from '$lib/server/funcs'
-import { setCookie } from '$lib/server/cookies/main'
-import type { User } from '../../../types/types'
-import crypto from 'crypto'
+import { deleteCookie } from '$lib/server/cookies/main'
 
-export const POST = (async ({ request, cookies }) => {
+export const POST = (async ({ cookies }) => {
+    const cookie = cookies.get('session')
+    if (cookie) {
+        deleteCookie(cookie)
+        cookies.delete('session', {
+            path: '/'
+        })
+
+        return json({
+            status: true
+        })
+    }
+
     return json({
         status: false
     })

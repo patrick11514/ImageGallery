@@ -1,7 +1,32 @@
 <script lang="ts">
+    import { goto } from '$app/navigation'
     import Badge from '../../components/badge.svelte'
+    import Button from '../../components/button.svelte'
     import { data } from '../../components/data.svelte'
     import Redirect from '../../components/redirect.svelte'
+    import type { Response } from '../../types/response'
+
+    const logout = async () => {
+        let request = await fetch('/api/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        let json = (await request.json()) as Response
+
+        if (json.status) {
+            data.set({
+                logged: false,
+                role: {
+                    name: '',
+                    color: ''
+                }
+            })
+            goto('/')
+        }
+    }
 </script>
 
 {#if !$data?.logged}
@@ -24,6 +49,12 @@
                 </div>
             </h2>
         </div>
-        <div>{JSON.stringify($data, null, 4)}</div>
+        <div class="flex flex-col">
+            <div class="flex flex-row">
+                <div>Nějaký text</div>
+                <div><Button on:click={() => logout()} type="button">Odhlásit se</Button></div>
+            </div>
+            <div>{JSON.stringify($data, null, 4)}</div>
+        </div>
     </div>
 {/if}
