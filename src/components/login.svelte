@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Button from '../components/button.svelte'
-    import Input from '../components/input.svelte'
+    import Button from './button.svelte'
+    import Input from './input.svelte'
 
     import type { LoginResponse } from '../types/response'
 
-    import { data } from '../components/data.svelte'
+    import { data } from './data.svelte'
 
     let username: string
     let password: string
