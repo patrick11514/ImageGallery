@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Login from './login.svelte'
+    import Login from '../components/login.svelte'
     import { data } from '../components/data.svelte'
     import Redirect from '../components/redirect.svelte'
 </script>
