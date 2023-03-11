@@ -1,6 +1,6 @@
 <script lang="ts">
     export let type: 'button' | 'submit' | 'reset' | null | undefined
-    let cls: string
+    let cls = ''
     export { cls as class }
 </script>
 
