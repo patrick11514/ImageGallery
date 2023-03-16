@@ -7,6 +7,7 @@ import { comparePass } from '$lib/server/funcs'
 import { setCookie, updateCookie } from '$lib/server/cookies/main'
 import type { User } from '../../../types/types'
 import crypto from 'crypto'
+import { validate } from 'uuid'
 
 //expire afte 10 minutes
 const cookieExpire = 1000 * 60 * 10
@@ -41,7 +42,7 @@ export const POST = (async ({ request, cookies }) => {
 
             const currentCookie = cookies.get('session')
             let cookie: string
-            if (currentCookie) {
+            if (currentCookie && validate(currentCookie)) {
                 cookie = updateCookie<User>(currentCookie, userData, cookieExpire)
             } else {
                 cookie = setCookie<User>(userData, cookieExpire)
