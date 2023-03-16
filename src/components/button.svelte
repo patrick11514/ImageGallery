@@ -7,7 +7,7 @@
 <button
     on:click
     {type}
-    class={`px-4 py-2 border-black border-2 rounded-xl bg-slate-800 hover:bg-slate-9 duration-300 font-bold disabled:active:bg-slate-800 active:bg-slate-900 disabled:cursor-not-allowed ${
+    class={`md:px-4 py-2 rounded-xl bg-neutral-700 hover:bg-zinc-900 duration-300 font-bold disabled:active:bg-slate-800 active:bg-slate-900 disabled:cursor-not-allowed ${
         cls || ''
     }`}
 >

@@ -22,7 +22,7 @@
 
 <div id="input" class="flex flex-col">
     <label class="font-bold flex flex-col" for={`input-${id}`}>
-        <span class="text-xl border-b-white border-b-2 w-max">{name}</span>
+        <span class="text-xl w-max">{name}</span>
     </label>
     {#if type == 'text'}
         <input
