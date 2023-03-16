@@ -18,4 +18,12 @@
             color: ''
         }
     })
+
+    export const currentPage = writable<{
+        name: string
+        id: string
+    }>({
+        name: '',
+        id: ''
+    })
 </script>
