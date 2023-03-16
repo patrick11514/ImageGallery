@@ -67,16 +67,18 @@
     }
 </script>
 
-<div class="m-auto p-4 w-18/24 h-22/24 bg-slate-700 rounded-xl">
-    <h1 class="mx-auto w-max font-bold text-4xl">Přihlášení</h1>
-    <div class="m-auto flex flex-col w-3/4">
+<div
+    class="m-auto p-4 md:w-14/24 lg:w-12/24 xl:w-10/24 2xl:w-8/24 w-full h-96 bg-zinc-600 rounded-xl duration-300 flex flex-col"
+>
+    <h1 class="mx-auto mt-auto w-max font-bold text-4xl">Přihlášení</h1>
+    <form class="m-auto mb-auto flex flex-col w-3/4">
         {#if error}
             <h1 class="text-red-500 text-center font-bold text-xl">{error}</h1>
         {/if}
         <Input bind:value={username} error={inputError.username} name="Uživatelské jméno" />
         <Input bind:value={password} error={inputError.password} name="Heslo" type="password" />
-        <Button class="w-1/4 mx-auto mt-2" type="button" on:click={(ev) => login(ev)}>
+        <Button class="w-2/4 mx-auto mt-2" type="submit" on:click={(ev) => login(ev)}>
             Přihlásit se
         </Button>
-    </div>
+    </form>
 </div>
