@@ -1,5 +1,15 @@
 <script lang="ts">
-    import { data } from './data.svelte'
+    import { currentPage } from './data.svelte'
+    import Stats from './content/stats.svelte'
+
+    const content = {
+        home: Stats
+    }
+    let page: (typeof content)[keyof typeof content]
+
+    currentPage.subscribe(() => {
+        page = content[$currentPage.id as keyof typeof content]
+    })
 </script>
 
-{JSON.stringify($data, null, 4)}
+<svelte:component this={page} />
