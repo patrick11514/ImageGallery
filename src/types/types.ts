@@ -7,3 +7,9 @@ export interface User {
     hash: string
     username: string
 }
+
+export interface Stat {
+    color: string
+    name: string
+    count: number
+}

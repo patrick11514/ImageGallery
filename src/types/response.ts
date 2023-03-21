@@ -1,4 +1,4 @@
-import type { User } from './types'
+import type { Stat, User } from './types'
 
 export interface Response {
     status: boolean
@@ -8,4 +8,8 @@ export interface Response {
 
 export interface LoginResponse extends Response {
     data: User
+}
+
+export interface StatsResponse extends Response {
+    data: Stat[]
 }
