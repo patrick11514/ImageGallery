@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { deleteCookie, getCookie } from '$lib/server/cookies/main'
-import type { User } from '../../../../../../Projects/Images/src/types/types'
+import { getCookie } from '$lib/server/cookies/main'
+import type { User } from '$types/types'
 
 export const GET = (async ({ cookies }) => {
     const cookie = cookies.get('session')
