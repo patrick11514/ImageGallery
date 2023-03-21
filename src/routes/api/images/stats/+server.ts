@@ -55,13 +55,14 @@ export const GET = (async ({ cookies }) => {
         }
     }
 
-    return json(
-        Object.entries(data).map(([name, count]) => {
+    return json({
+        status: true,
+        data: Object.entries(data).map(([name, count]) => {
             return {
                 color: colors[name as keyof typeof colors],
                 name,
                 count
             }
         })
-    )
+    })
 }) satisfies RequestHandler
