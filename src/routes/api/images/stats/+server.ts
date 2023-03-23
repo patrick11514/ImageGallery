@@ -22,6 +22,10 @@ export const GET = (async ({ cookies }) => {
         other: '#000000'
     }
 
+    if (!fs.existsSync('static/storage')) {
+        fs.mkdirSync('static/storage')
+    }
+
     const files = fs.readdirSync('static/storage')
     const data = {
         images: 0,
