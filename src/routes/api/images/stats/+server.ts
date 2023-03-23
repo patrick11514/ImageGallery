@@ -16,10 +16,10 @@ export const GET = (async ({ cookies }) => {
     }
 
     const colors = {
-        images: '#ff0000',
-        videos: '#00ff00',
-        gifs: '#0000ff',
-        other: '#000000'
+        images: 'bg-pink-400',
+        videos: 'bg-blue-500',
+        gifs: 'bg-green-500',
+        other: 'bg-yellow-500'
     }
 
     if (!fs.existsSync('static/storage')) {
