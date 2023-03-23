@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types'
 import { getCookie } from '$lib/server/cookies/main'
 import type { User } from '$types/types'
 import * as fs from 'fs'
+import { faFile, faFileImage, faFileInvoice, faFileVideo } from '@fortawesome/free-solid-svg-icons'
 
 export const GET = (async ({ cookies }) => {
     const cookie = cookies.get('session')
@@ -20,6 +21,13 @@ export const GET = (async ({ cookies }) => {
         videos: 'bg-blue-500',
         gifs: 'bg-green-500',
         other: 'bg-yellow-500'
+    }
+
+    const icons = {
+        images: faFileImage,
+        videos: faFileVideo,
+        gifs: faFileInvoice,
+        other: faFile
     }
 
     if (!fs.existsSync('static/storage')) {
@@ -64,6 +72,7 @@ export const GET = (async ({ cookies }) => {
         data: Object.entries(data).map(([name, count]) => {
             return {
                 color: colors[name as keyof typeof colors],
+                icon: icons[name as keyof typeof icons],
                 name,
                 count
             }
