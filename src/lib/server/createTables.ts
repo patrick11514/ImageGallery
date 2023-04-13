@@ -1,4 +1,4 @@
-import { connection as conn } from './mysql'
+import { connection as conn } from './vars'
 import fs from 'fs'
 import { hashPass } from './funcs'
 import path from 'path'

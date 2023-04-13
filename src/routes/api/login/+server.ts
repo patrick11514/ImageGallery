@@ -2,12 +2,10 @@ import { json } from '@sveltejs/kit'
 import type { UserLogin } from '../../../types/request'
 import type { RequestHandler } from './$types'
 import type { LoginResponse, Response } from '../../../types/response'
-import { connection as conn } from '$lib/server/mysql'
+import { connection as conn, jwt } from '$lib/server/vars'
 import { comparePass } from '$lib/server/funcs'
-import { setCookie, updateCookie } from '$lib/server/cookies/main'
 import type { User } from '../../../types/types'
 import crypto from 'crypto'
-import { validate } from 'uuid'
 
 //expire afte 10 minutes
 const cookieExpire = 1000 * 60 * 10
@@ -39,14 +37,7 @@ export const POST = (async ({ request, cookies }) => {
                 hash: crypto.createHash('md5').update(user[0].email).digest('hex'),
                 username: data.username
             } satisfies User
-
-            const currentCookie = cookies.get('session')
-            let cookie: string
-            if (currentCookie && validate(currentCookie)) {
-                cookie = updateCookie<User>(currentCookie, userData, cookieExpire)
-            } else {
-                cookie = setCookie<User>(userData, cookieExpire)
-            }
+            const cookie = jwt.setCookie(userData)
 
             cookies.set('session', cookie, {
                 path: '/',

@@ -1,11 +1,10 @@
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
-import { deleteCookie } from '$lib/server/cookies/main'
+import { jwt } from '$lib/server/vars'
 
 export const POST = (async ({ cookies }) => {
     const cookie = cookies.get('session')
     if (cookie) {
-        deleteCookie(cookie)
         cookies.delete('session', {
             path: '/'
         })

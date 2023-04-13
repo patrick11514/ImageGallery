@@ -21,6 +21,7 @@ declare global {
             DB_USERNAME: string
             DB_PASSWORD: string
             DB_DATABASE: string
+            JWT_KEY: string
         }
     }
 }
