@@ -42,14 +42,16 @@
         <div
             class="md:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-3/12 w-full bg-zinc-800 border-r-2 border-r-black"
         >
-            <h1 class="mx-auto w-max font-bold font-sono text-4xl pt-3 border-b-white border-b-4">
+            <h1
+                class="mx-auto w-full text-center font-bold font-sono text-4xl pt-3 pb-2.5 border-b-white border-b-4"
+            >
                 Galerie
             </h1>
             <h2
-                class="mx-auto w-5/6 my-2 bg-slate-700 rounded-xl border-2 border-black font-bold flex flex-row"
+                class="mx-auto w-5/6 my-2 py-2 bg-slate-700 rounded-xl border-2 border-black font-bold flex flex-col lg:flex-row"
             >
                 <img
-                    class="p-4 rounded-full"
+                    class="p-2 rounded-full max-w-fit mx-auto"
                     src={`https://gravatar.com/avatar/${$data.hash}?s=128`}
                     alt="pfp"
                 />
@@ -60,7 +62,7 @@
             </h2>
             <Navigation />
         </div>
-        <div class="w-full flex flex-col">
+        <div class="w-full flex flex-col border-t-4 md:border-t-0 border-white md:border-none">
             <div class="flex flex-row border-b-2 bg-neutral-800 border-b-black">
                 <div class="font-bold text-2xl my-auto ml-4 mr-auto">{$currentPage.name}</div>
                 <div class="m-3">
