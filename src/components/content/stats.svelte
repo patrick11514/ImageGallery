@@ -5,7 +5,7 @@
     import Fa from 'svelte-fa'
     import Loading from '../loading.svelte'
 
-    import Chart from 'chart.js/auto'
+    import Chart, { type ChartItem } from 'chart.js/auto'
 
     let data: Stat[]
 
@@ -22,8 +22,8 @@
         }
 
         ctx = chartCanvas.getContext('2d')
-        //@ts-ignore
-        var chart = new Chart(ctx, {
+
+        new Chart(ctx as ChartItem, {
             type: 'line',
             data: {
                 labels: chartLabels,
@@ -45,7 +45,7 @@
 {:else}
     <div class="m-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 5xl:grid-cols-5">
         {#each data as status}
-            <div class={'mx-1 rounded-xl p-2 flex flex-row' + ' ' + status.color}>
+            <div class={'m-1 rounded-xl p-2 flex flex-row' + ' ' + status.color}>
                 <div class="w-12 h-12">
                     <Fa icon={status.icon} class="h-full w-full text-4xl my-1.5" />
                 </div>

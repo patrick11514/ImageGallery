@@ -17,6 +17,7 @@
         "@sveltejs/adapter-node": "^1.2.2",
         "@sveltejs/kit": "^1.8.5",
         "@types/bcrypt": "^5.0.0",
+        "@types/chart.js": "^2.9.37",
         "@types/jsonwebtoken": "^9.0.1",
         "@types/uuid": "^9.0.1",
         "@typescript-eslint/eslint-plugin": "^5.53.0",
